@@ -1,0 +1,18 @@
+@(define split (in out))
+@  (next :list in)
+@/[ \t]*/@(coll)@(maybe)@token@/  +/@(or)@token@(end)@(end)
+@  (bind out token)
+@(end)
+@(repeat)
+@  (cases)
+@/[ \t]*/
+@  (or)
+@tokens
+@  (filter (:fun split) tokens)
+@  (do (if (oddp (length tokens))
+         (let ((names ^(,*tokens "null")))
+           (each ((pair (zip names (cdr names))))
+             (if (all (mapcar [chain int-str not] pair))
+               (put-line (car pair)))))))
+@  (end)
+@(end)
